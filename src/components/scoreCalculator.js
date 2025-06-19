@@ -2,7 +2,7 @@ import throttle from "../utils/throttle";
 let prevTyped = 0;
 let delay = 750
 const calculateScore = throttle((par, opp, ind, setWpm) => {
-    console.log('testing throttle and module', ind);
+    // console.log('testing throttle and module', ind);
     const correctCharacters = par.reduce((agr, e, i, arr) => {
         if (e === opp[i])
             return 1 + agr;
