@@ -1,7 +1,10 @@
+import { useSelector } from "react-redux";
 import SpeedMeter from "./SpeedMeter";
 import { XCircle, Percent } from "lucide-react"; // optional icons
 
-function Score({ wpm, wrg, accuracy }) {
+function Score({ wpm }) {
+    const score = useSelector((state) => state.score);
+
     return (
         <div className="bg-neutral-900 text-white px-6 py-5 rounded-2xl shadow-lg border border-neutral-700 w-full max-w-md mx-auto">
             {/* Header */}
@@ -23,12 +26,12 @@ function Score({ wpm, wrg, accuracy }) {
                 <div className="flex items-center gap-1">
                     <XCircle size={16} className="text-red-500" />
                     <span>Mistypes:</span>
-                    <span className="font-bold text-white">{wrg}</span>
+                    <span className="font-bold text-white">{score.mistypes}</span>
                 </div>
                 <div className="flex items-center gap-1">
                     <Percent size={16} className="text-blue-400" />
                     <span>Accuracy:</span>
-                    <span className="font-bold text-white">{accuracy}%</span>
+                    <span className="font-bold text-white">{score.accuracy}%</span>
                 </div>
             </div>
         </div>
