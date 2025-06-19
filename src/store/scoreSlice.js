@@ -18,27 +18,22 @@ export const scoreSlice = createSlice({
             state.accuracy = action.payload.accuracy;
             state.mistypes = action.payload.mistypes;
             state.wpmMeter = action.payload.wpmMeter;
-            const wpmMeterKeys = Object.keys(action.payload.wpmMeter)
-            // console.log(wpmMeterKeys, state.wpmMeter);
-            const averageWpn = wpmMeterKeys.reduce((prev, elem, i, arr) => {
-                return prev += action.payload.wpmMeter[elem];
-            }, 0) / wpmMeterKeys.length;
-            // console.log(averageWpn);
-            state.averageWpn = averageWpn;
-
         },
         updateMistypes: (state, action) => {
             state.mistypes = action.payload.mistypes;
         },
         updateWpmMeter: (state, action) => {
-            state.wpmMeter = action.payload.wpmMeter;  
-            const wpmMeterKeys = Object.keys(action.payload.wpmMeter)
-            // console.log(wpmMeterKeys, state.wpmMeter);
-            const averageWpn = wpmMeterKeys.reduce((prev, elem, i, arr) => {
-                return prev += action.payload.wpmMeter[elem];
-            }, 0) / wpmMeterKeys.length;
-            // console.log(averageWpn);
+            state.wpmMeter = action.payload.wpmMeter;
+        },
+        updateAverageWpm: (state) => {
+            const wpmMeterKeys = Object.keys(state.wpmMeter)
+            const averageWpn = Math.round(wpmMeterKeys.reduce((prev, elem) => {
+                return prev += state.wpmMeter[elem];
+            }, 0) / wpmMeterKeys.length);
             state.averageWpn = averageWpn;
+        },
+        resetScore: (state) => {
+            state = initialState;
         }
     }
 })
@@ -47,6 +42,8 @@ export const {
     updateAccuracy,
     updateMistypes,
     updateScore,
-    updateWpmMeter } = scoreSlice.actions;
+    updateWpmMeter,
+    updateAverageWpm,
+    resetScore } = scoreSlice.actions;
 
 export default scoreSlice.reducer;

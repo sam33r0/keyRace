@@ -5,7 +5,7 @@ function Typetest() {
 
     return (
         <div className='w-screen h-screen flex justify-center items-start p-20 bg-black'>
-            <Typetesting par={par} />
+            <Typetesting par={[...'sameer srivastava']} />
         </div>
     )
 }
