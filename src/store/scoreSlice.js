@@ -4,7 +4,8 @@ const initialState = {
     accuracy: 0,
     mistypes: 0,
     wpmMeter: {},
-    averageWpn: 0
+    averageWpn: 0,
+    finalScore: 0
 }
 
 export const scoreSlice = createSlice({
@@ -34,6 +35,14 @@ export const scoreSlice = createSlice({
         },
         resetScore: (state) => {
             state = initialState;
+        },
+        finalScoring: (state, action) => {
+            const opp = action.payload.opp;
+            const par = action.payload.par;
+            const dif = opp.filter((e, i, arr) => {
+                return par[i] !== e;
+            })
+            state.finalScore = (((par.length - dif.length) / par.length) * 100).toFixed(2);
         }
     }
 })
@@ -44,6 +53,7 @@ export const {
     updateScore,
     updateWpmMeter,
     updateAverageWpm,
-    resetScore } = scoreSlice.actions;
+    resetScore,
+    finalScoring } = scoreSlice.actions;
 
 export default scoreSlice.reducer;

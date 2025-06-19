@@ -33,10 +33,14 @@ function FinalScore() {
             </div>
 
             <div className="w-full max-w-3xl bg-neutral-900 p-6 rounded-xl border border-neutral-700 shadow">
-                <div className="grid grid-cols-3 text-center mb-6">
+                <div className="grid grid-cols-4 text-center mb-6">
                     <div>
                         <h2 className="text-lg text-neutral-400">Accuracy</h2>
                         <p className="text-xl font-bold text-white">{score.accuracy}%</p>
+                    </div>
+                    <div>
+                        <h2 className="text-lg text-neutral-400">Final Score</h2>
+                        <p className="text-xl font-bold text-white">{score.finalScore}%</p>
                     </div>
                     <div>
                         <h2 className="text-lg text-neutral-400">Mistypes</h2>

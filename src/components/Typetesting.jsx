@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateScore } from './../store/scoreSlice'
+import { finalScoring, updateScore } from './../store/scoreSlice'
 import Score from './Score';
-import calculateScore from './scoreCalculator';
+import calculateWpm from './wpmCalculator';
 import { useNavigate } from 'react-router-dom';
 function Typetesting({ par }) {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function Typetesting({ par }) {
     const allowedKeys = [...'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM, .!@-_/;:']
     const keyDownFunc = (e) => {
         if (!allowedKeys.includes(e.key)) return;
-        // calculateScore(par, opp, ind);
+        // calculateWpm(par, opp, ind);
         setInd(prevInd => {
             if (e.key === 'Backspace') {
                 if (prevInd > 0) {
@@ -44,7 +44,7 @@ function Typetesting({ par }) {
     };
     const [opp, setOpp] = useState((new Array(par.length)).fill(''));
     useEffect(() => {
-        calculateScore(par, opp, ind, setWpm)
+        calculateWpm(par, opp, ind, setWpm)
     }, [opp, par, ind, setInd, setOpp, setWpm])
     useEffect(() => {
         if (ind <= par.length) {
@@ -54,8 +54,12 @@ function Typetesting({ par }) {
                 accuracy,
                 mistypes: wrg
             }));
-            if(ind===par.length)
+            if (ind === par.length) {
+                dispatch(finalScoring({
+                    opp, par
+                }))
                 navigate('/score')
+            }
         }
     }, [wpm, ind, wrg]);
     useEffect(() => {
@@ -70,7 +74,7 @@ function Typetesting({ par }) {
             <Score wpm={wpm} />
             <div className='mt-7 text-lg'>
                 {par.map((e, i) => {
-                    return <span key={`${e}${i}`} className={`${i == ind ? 'text-yellow-500' : opp[i] === par[i] ? 'text-gray-50' : opp[i] === '' ? 'text-gray-500' : 'text-red-500'}`}>{e == ' ' && i == ind ? `_` : e}</span>
+                    return <span key={`${e}${i}`} className={`${i == ind ? 'text-yellow-500' : opp[i] === par[i] ? 'text-gray-50' : opp[i] === '' ? 'text-gray-500' : 'text-red-500'}`}>{e == ' ' && i == ind ? `_` : e == ' ' && ind > i && opp[i] != ' ' ? '_' : e}</span>
                 })}
             </div>
         </div>
