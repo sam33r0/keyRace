@@ -7,18 +7,40 @@ import store from './store/store.js'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Typetest from './pages/Typetest.jsx'
 import FinalScore from './pages/FinalScore.jsx'
+import Login from './pages/Login.jsx'
+import Signup from './pages/Signup.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
+import Authverify from './components/Authverify.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    children: [{
-      path: '/',
-      element: <Typetest />
-    },
-    {
-      path:'/score',
-      element:<FinalScore/>
-    }]
+    children: [
+      {
+        path: '*',
+        element: <ErrorPage />
+      },
+      {
+        path: '/',
+        element: <Authverify>
+          <Typetest />
+        </Authverify>
+      },
+      {
+        path: '/score',
+        element: <Authverify>
+          <FinalScore />
+        </Authverify>
+      },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/signup',
+        element: <Signup />
+      }
+    ]
   }
 ])
 createRoot(document.getElementById('root')).render(
