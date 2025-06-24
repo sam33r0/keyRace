@@ -5,24 +5,31 @@ import { useDispatch } from 'react-redux';
 import { login } from '../store/authSlice';
 import { useNavigate } from 'react-router-dom';
 
-function GoogleLogin({ formOn }) {
+function GoogleLogin({ formOn, setFormOn, setSuccess }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const responseGoogle = async (authResult) => {
     try {
       console.log(authResult);
+      if (authResult?.error) {
+        setFormOn(true)
+      }
+      else {
+        setSuccess(true)
+      }
       if (authResult['code']) {
-        const resp = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/user/google?code=${authResult.code}`);
-        console.log(resp.data.data.user);
+        const resp = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/user/google?code=${authResult.code}`, { withCredentials: true });
+        // console.log(resp.data.data.user);
         dispatch(login({
           userData: resp.data.data.user
         }))
         setTimeout(() => {
-        navigate('/')
-      }, 1500)
+          navigate('/')
+        }, 1500)
       }
     } catch (error) {
       console.error(authResult);
+      setFormOn(true)
     }
   }
   const googleLogin = useGoogleLogin({
@@ -33,11 +40,21 @@ function GoogleLogin({ formOn }) {
   return (
     <button
       disabled={!formOn}
-      onClick={googleLogin}
-      className="bg-white w-full mt-4 disabled:opacity-40 cursor-pointer hover:text-white hover:bg-emerald-600 text-black font-semibold py-2 rounded transition"
+      onClick={e => {
+        setFormOn(false);
+        googleLogin(e)
+      }}
+      className={`w-full mt-4 flex items-center justify-center gap-2 py-2 px-4 rounded font-semibold transition
+    ${formOn ? 'bg-white text-black hover:bg-emerald-800 hover:text-white' : 'bg-white text-black opacity-40 cursor-not-allowed'}`}
     >
-      Login with google
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+        alt="Google logo"
+        className="w-5 h-5"
+      />
+      Login with Google
     </button>
+
   )
 }
 

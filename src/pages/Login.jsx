@@ -40,7 +40,7 @@ function Login() {
 
   const GoogleAuthWrapper = () => {
     return (<GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <GoogleLogin formOn={formOn}></GoogleLogin>
+      <GoogleLogin formOn={formOn} setFormOn={setFormOn} setSuccess={setSuccess}></GoogleLogin>
     </GoogleOAuthProvider>)
   }
   console.log(email, password);

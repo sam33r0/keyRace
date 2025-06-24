@@ -1,22 +1,37 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-    CartesianGrid,
-} from 'recharts';
+
 import { updateAverageWpm } from '../store/scoreSlice';
+import axios from 'axios';
+import Graph from '../components/Graph';
 
 function FinalScore() {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(updateAverageWpm());
-    }, []);
     const score = useSelector((state) => state.score);
+    const sendScore = async () => {
+        try {
+            // console.log(avg, score.averageWpm);
+            const wpmMeterKeys = Object.keys(score.wpmMeter)
+            const averageWpm = Math.round(wpmMeterKeys.reduce((prev, elem) => {
+                return prev += score.wpmMeter[elem];
+            }, 0) / wpmMeterKeys.length);
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/score/addScore`, {
+                accuracy: score.accuracy,
+                mistypes: score.mistypes,
+                finalScore: score.finalScore,
+                averageWpm
+            }, { withCredentials: true });
+            console.log(res);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    useEffect(() => {
+        // console.log('testing', score);
+        dispatch(updateAverageWpm());
+        sendScore();
+    }, []);
+
 
     const totalLength = Object.keys(score.wpmMeter).length;
 
@@ -49,41 +64,14 @@ function FinalScore() {
                     <div>
                         <h2 className="text-lg text-neutral-400">Avg WPM</h2>
                         <p className="text-xl font-bold text-white">
-                            {score.averageWpn}
+                            {score.averageWpm}
                         </p>
                     </div>
                 </div>
 
                 {/* Line Chart */}
                 <div className="w-full h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <LineChart data={wpmData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                            <XAxis
-                                dataKey="progress"
-                                domain={[0, 100]}
-                                ticks={[0, 25, 50, 75, 100]}
-                                tickFormatter={(tick) => `${tick}%`}
-                                stroke="#aaa"
-                            />
-                            <YAxis stroke="#aaa" />
-                            <Tooltip
-                                formatter={(value, name) => [`${value} WPM`, 'Speed']}
-                                labelFormatter={(label) => `Progress: ${label}%`}
-                                contentStyle={{ backgroundColor: '#111', borderColor: '#444' }}
-                                labelStyle={{ color: '#0f0' }}
-                                itemStyle={{ color: '#0f0' }}
-                            />
-                            <Line
-                                type="monotone"
-                                dataKey="wpm"
-                                stroke="#10B981"
-                                strokeWidth={2}
-                                activeDot={{ r: 5 }}
-                                dot={false}
-                            />
-                        </LineChart>
-                    </ResponsiveContainer>
+                    <Graph wpmData={wpmData}/>
                 </div>
             </div>
         </div>

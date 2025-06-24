@@ -4,7 +4,7 @@ const initialState = {
     accuracy: 0,
     mistypes: 0,
     wpmMeter: {},
-    averageWpn: 0,
+    averageWpm: 0,
     finalScore: 0
 }
 
@@ -28,10 +28,10 @@ export const scoreSlice = createSlice({
         },
         updateAverageWpm: (state) => {
             const wpmMeterKeys = Object.keys(state.wpmMeter)
-            const averageWpn = Math.round(wpmMeterKeys.reduce((prev, elem) => {
+            const averageWpm = Math.round(wpmMeterKeys.reduce((prev, elem) => {
                 return prev += state.wpmMeter[elem];
             }, 0) / wpmMeterKeys.length);
-            state.averageWpn = averageWpn;
+            state.averageWpm = averageWpm;
         },
         resetScore: (state) => {
             state = initialState;
