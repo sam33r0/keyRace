@@ -13,7 +13,7 @@ function Typetesting({ par }) {
     const [start, setStart] = useState(false);
     const wpmMeter = useRef({});
     let accuracy = (Math.max((1 - ((wrg * 2) / (wrg + par.length))) * 100, 0)).toFixed(2);
-    const allowedKeys = [...'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM, .!@-_/;:']
+    const allowedKeys = [...'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM, ."!@-_/;:']
     const keyDownFunc = (e) => {
         if (!allowedKeys.includes(e.key)) return;
         // calculateWpm(par, opp, ind);
@@ -69,6 +69,7 @@ function Typetesting({ par }) {
     }, [wpm, ind, wrg]);
     useEffect(() => {
         allowedKeys.push('Backspace');
+        allowedKeys.push("'");
         setWpm(0)
         window.addEventListener('keydown', keyDownFunc);
         return () => {

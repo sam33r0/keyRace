@@ -28,7 +28,7 @@ function Login() {
       setError(false)
       setTimeout(() => {
         navigate('/')
-      }, 1500)
+      }, 500)
       // maybe redirect or store token
     } catch (err) {
       console.error(err);

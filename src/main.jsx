@@ -12,6 +12,7 @@ import Signup from './pages/Signup.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import Authverify from './components/Authverify.jsx'
 import PlScore from './pages/PlScore.jsx'
+import Multiplayer from './pages/Multiplayer.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
         path: '/pl-scores',
         element: <Authverify>
           <PlScore />
+        </Authverify>
+      },
+      {
+        path: '/multiplayer',
+        element: <Authverify>
+          <Multiplayer />
         </Authverify>
       }
     ]

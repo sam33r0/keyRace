@@ -33,7 +33,7 @@ function Navbar() {
         </>}
         {auth.status &&
           <>
-          <Link to='/' className="hover:text-white transition-colors">multiplayer</Link>
+          <Link to='/multiplayer' className="hover:text-white transition-colors">Multiplayer</Link>
             <Avatar auth={auth} logoutFunc={logoutFunc} />
           </>
         }

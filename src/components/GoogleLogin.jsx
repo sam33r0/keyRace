@@ -25,7 +25,7 @@ function GoogleLogin({ formOn, setFormOn, setSuccess }) {
         }))
         setTimeout(() => {
           navigate('/')
-        }, 1500)
+        }, 500)
       }
     } catch (error) {
       console.error(authResult);
