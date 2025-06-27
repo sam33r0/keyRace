@@ -1,14 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import getAvatar from '../utils/getAvatar';
 
 function Avatar({ auth, logoutFunc }) {
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef(null);
 
-    const src =
-        auth.userData?.avatar ||
-        `https://api.dicebear.com/7.x/thumbs/svg?seed=${auth.userData?.fullName || 'User'}`;
-
+    const src = getAvatar(auth.userData);
     // Close dropdown when clicking outside
     useEffect(() => {
         function handleClickOutside(event) {
@@ -39,7 +37,7 @@ function Avatar({ auth, logoutFunc }) {
             {showMenu && (
                 <div className="absolute right-0 mt-3 w-56 bg-neutral-800 rounded-md shadow-lg border border-neutral-700 z-50">
                     {/* <div className="p-4 border-b border-neutral-700 text-sm text-white"> */}
-                        {/* Recent Scores:
+                    {/* Recent Scores:
                         <ul className="mt-2 space-y-1 max-h-32 overflow-y-auto text-neutral-300">
                             {auth.userData?.previousScores?.length ? (
                                 auth.userData.previousScores.slice(0, 5).map((score, idx) => (
@@ -55,12 +53,12 @@ function Avatar({ auth, logoutFunc }) {
                             
 
                         </ul> */}
-                        
+
                     {/* </div> */}
                     <button className="block w-full px-4 py-2 text-left text-red-400 hover:bg-neutral-700 hover:text-white transition">
 
-                            <Link to="/pl-scores" className="block w-fulltext-sm text-emerald-400 hover:underline transition">View My Scores</Link>
-                        </button>
+                        <Link to="/pl-scores" className="block w-fulltext-sm text-emerald-400 hover:underline transition">View My Scores</Link>
+                    </button>
                     <button
                         onClick={logoutFunc}
                         className="block w-full px-4 py-2 text-left text-red-400 hover:bg-neutral-700 hover:text-white transition"

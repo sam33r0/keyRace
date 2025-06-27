@@ -36,9 +36,7 @@ function Multiplayer() {
         setNotifications((prev) => prev.slice(1));
       }, 3000);
     });
-    socket.on('game-stop', (data) => {
-      console.log('server asked to stop the game', data)
-    })
+    
     socket.on('game-start', (data) => {
       console.log('game start called');
       setData(data)
@@ -46,8 +44,9 @@ function Multiplayer() {
 
       // navigate('/game'); // Or however your game route is structured
     });
+
     socket.on('game-stop', (data) => {
-      console.log('server asked to stop the game', data)
+      // console.log('server asked to stop the game', data)
       setScoreData(data);
       setGameStart('ended');
     })

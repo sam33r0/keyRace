@@ -1,3 +1,4 @@
+import getAvatar from "../utils/getAvatar";
 
 function ProgressMP({ users }) {
     // Sort users by progress (descending)
@@ -29,7 +30,7 @@ function ProgressMP({ users }) {
 
                         {/* Avatar */}
                         <img
-                            src={user.avatar}
+                            src={getAvatar(user)}
                             alt="avatar"
                             className="w-10 h-10 rounded-full border border-emerald-500"
                         />

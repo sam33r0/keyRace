@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import getAvatar from '../utils/getAvatar';
 
 function MPFinalScore({ scoreData = [], isHost = false, socket, roomCode }) {
     const onRestart = () => {
         socket.emit('start-game', roomCode);
     };
+    
     const auth = useSelector(state => state.auth)
     const winner = scoreData[0];
     const medals = ['🥇', '🥈', '🥉'];
@@ -23,7 +25,7 @@ function MPFinalScore({ scoreData = [], isHost = false, socket, roomCode }) {
                             className={`
                 flex items-center justify-between px-5 py-4 rounded-xl border-2 shadow-sm
                 transition-all duration-300
-                ${isTop ? 'bg-neutral-900 border-yellow-500 ring-4 ring-yellow-500' : me ? 'bg-neutral-900 border-emerald-500 ring-4 ring-emerald-500' : 'bg-neutral-800 border-neutral-700'}
+                ${isTop ? 'bg-neutral-900 border-yellow-500 ring-4 ring-yellow-500' : me ? 'bg-neutral-900 border-emerald-500 ring-2 ring-emerald-500' : 'bg-neutral-800 border-neutral-700'}
               `}
                         >
                             {/* Left: Avatar and Info */}
@@ -32,7 +34,7 @@ function MPFinalScore({ scoreData = [], isHost = false, socket, roomCode }) {
                                     {medals[index] || `#${index + 1}`}
                                 </div>
                                 <img
-                                    src={user.avatar}
+                                    src={getAvatar(user)}
                                     alt="Avatar"
                                     className={`w-10 h-10 rounded-full border ${isTop ? 'border-emerald-500' : 'border-gray-600'
                                         }`}
