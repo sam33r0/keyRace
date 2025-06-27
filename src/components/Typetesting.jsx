@@ -78,7 +78,7 @@ function Typetesting({ par }) {
         }
     }, [])
     return (
-        <div className='w-1/2 text-white'>
+        <div className='lg:w-1/2 w-3/4 text-white'>
             {!start && (
                 <div className="w-full flex flex-col items-center justify-center text-center mt-20">
                     <h1 className="text-3xl font-bold text-emerald-400 mb-4">Ready to Race? 🏁</h1>
@@ -110,7 +110,7 @@ function Typetesting({ par }) {
             ${i > ind ? 'text-neutral-500' : ''}
           `}
                         >
-                            {char === ' ' ? '\u00A0' : char}
+                            {char === ' ' && opp[i] != par[i] && ind > i ? '_' : char}
                         </span>
                     ))}
                 </div>

@@ -153,11 +153,11 @@ function MPTypeTesting({ par, socket, time }) {
             ${i > ind ? 'text-neutral-500' : ''}
           `}
                         >
-                            {char === ' ' ? '\u00A0' : char}
+                            {char === ' ' && opp[i] != par[i] && ind > i ? '_' : char}
                         </span>
                     ))}
                 </div>
-                <AvatarRaceTrack users={users} selfSocketId={socket.id}/>
+                <AvatarRaceTrack users={users} selfSocketId={socket.id} />
                 <div className='lg:flex w-full'>
                     {/* Live WPM */}
                     <Score wpm={wpm} />
