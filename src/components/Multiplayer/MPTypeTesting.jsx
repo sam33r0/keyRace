@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
-import calculateWpm from './wpmCalculator';
-import Score from './Score';
-import { finalScoring, updateScore } from './../store/scoreSlice'
+import calculateWpm from '../wpmCalculator';
+import Score from '../Score';
+import { finalScoring, updateScore } from '../../store/scoreSlice'
 
 import { useDispatch } from 'react-redux';
 import ProgressMP from './ProgressMP';
+import AvatarRaceTrack from './AvatarRaceTrack';
 
 function MPTypeTesting({ par, socket, time }) {
     const [ind, setInd] = useState(0);
@@ -156,6 +157,7 @@ function MPTypeTesting({ par, socket, time }) {
                         </span>
                     ))}
                 </div>
+                <AvatarRaceTrack users={users} selfSocketId={socket.id}/>
                 <div className='lg:flex w-full'>
                     {/* Live WPM */}
                     <Score wpm={wpm} />

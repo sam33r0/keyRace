@@ -2,10 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
-import Notifications from '../components/Notifications';
-import MultiplayerRoom from '../components/MultiplayerRoom';
-import MPTypeTesting from '../components/MPTypeTesting';
-import MPFinalScore from '../components/MPFinalScore';
+import Notifications from '../../components/Multiplayer/Notifications';
+import MultiplayerRoom from '../../components/Multiplayer/MultiplayerRoom';
+import MPTypeTesting from '../../components/Multiplayer/MPTypeTesting';
+import MPFinalScore from '../../components/Multiplayer/MPFinalScore';
 
 function Multiplayer() {
   const [error, setError] = useState('');

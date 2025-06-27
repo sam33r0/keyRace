@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import getAvatar from '../utils/getAvatar';
+import getAvatar from '../../utils/getAvatar';
 
 function MPFinalScore({ scoreData = [], isHost = false, socket, roomCode }) {
     const onRestart = () => {

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { logout } from '../store/authSlice';
 import Avatar from './Avatar';
@@ -9,6 +9,8 @@ function Navbar() {
   const auth = useSelector((state) => state.auth)
   // console.log(auth);
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const navigate = useNavigate();
   const logoutFunc = async () => {
     try {
@@ -33,7 +35,27 @@ function Navbar() {
         </>}
         {auth.status &&
           <>
-          <Link to='/multiplayer' className="hover:text-white transition-colors">Multiplayer</Link>
+            <Link
+              to="/solo"
+              className={`px-3 py-1 rounded transition ${location.pathname === '/solo'
+                  ? 'bg-emerald-700/20 text-emerald-400'
+                  : 'hover:bg-emerald-700/10 hover:text-emerald-300'
+                }`}
+            >
+              Solo
+            </Link>
+
+            <Link
+              to="/multiplayer"
+              className={`px-3 py-1 rounded transition ${location.pathname === '/multiplayer'
+                  ? 'bg-blue-700/20 text-blue-400'
+                  : 'hover:bg-blue-700/10 hover:text-blue-300'
+                }`}
+            >
+              Multiplayer
+            </Link>
+
+
             <Avatar auth={auth} logoutFunc={logoutFunc} />
           </>
         }

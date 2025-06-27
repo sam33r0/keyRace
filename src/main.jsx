@@ -12,7 +12,8 @@ import Signup from './pages/Signup.jsx'
 import ErrorPage from './pages/ErrorPage.jsx'
 import Authverify from './components/Authverify.jsx'
 import PlScore from './pages/PlScore.jsx'
-import Multiplayer from './pages/Multiplayer.jsx'
+import Multiplayer from './pages/Multiplayer/Multiplayer.jsx'
+import WelcomePage from './pages/WelcomePage.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -24,6 +25,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/',
+        element: <Authverify>
+          <WelcomePage />
+        </Authverify>
+      },
+      {
+        path: '/solo',
         element: <Authverify>
           <Typetest />
         </Authverify>
