@@ -22,7 +22,6 @@ function Login() {
         email,
         password
       }, { withCredentials: true });
-      console.log(response.data.data.user);
       dispatch(login({ userData: response.data.data.user }))
       setSuccess(true)
       setError(false)
@@ -43,7 +42,6 @@ function Login() {
       <GoogleLogin formOn={formOn} setFormOn={setFormOn} setSuccess={setSuccess}></GoogleLogin>
     </GoogleOAuthProvider>)
   }
-  console.log(email, password);
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="bg-neutral-900 p-8 rounded-xl shadow-md w-full max-w-md border border-neutral-700">

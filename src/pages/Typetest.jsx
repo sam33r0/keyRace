@@ -8,7 +8,7 @@ function Typetest() {
     const callData = async()=>{
         try {
             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/paragraph`);
-            console.log(res);
+            // console.log(res);
             setPar(res.data.par);
             
         } catch (error) {

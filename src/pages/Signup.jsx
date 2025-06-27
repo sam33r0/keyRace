@@ -20,7 +20,7 @@ function Signup() {
         fullName: username,
         // avatar: 'email'
       }, { withCredentials: true });
-      console.log(response);
+      // console.log(response);
       setSuccess(true);
       setError(false)
       setTimeout(() => {

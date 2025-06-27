@@ -21,7 +21,7 @@ function FinalScore() {
                 finalScore: score.finalScore,
                 averageWpm
             }, { withCredentials: true });
-            console.log(res);
+            // console.log(res);
         } catch (err) {
             console.log(err);
         }

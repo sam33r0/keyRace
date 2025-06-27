@@ -10,7 +10,7 @@ function GoogleLogin({ formOn, setFormOn, setSuccess }) {
   const navigate = useNavigate();
   const responseGoogle = async (authResult) => {
     try {
-      console.log(authResult);
+      // console.log(authResult);
       if (authResult?.error) {
         setFormOn(true)
       }

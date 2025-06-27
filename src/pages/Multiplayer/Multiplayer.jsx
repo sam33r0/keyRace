@@ -38,7 +38,7 @@ function Multiplayer() {
     });
     
     socket.on('game-start', (data) => {
-      console.log('game start called');
+      // console.log('game start called');
       setData(data)
       setGameStart('started');
 
