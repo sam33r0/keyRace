@@ -6,7 +6,7 @@ function Score({ wpm }) {
     const score = useSelector((state) => state.score);
 
     return (
-        <div className="bg-neutral-900 text-white px-6 py-5 rounded-2xl shadow-lg border border-neutral-700 w-full max-w-md mx-auto">
+        <div className="bg-neutral-900 text-white px-6 py-5 rounded-2xl shadow-lg border border-neutral-700 w-full max-w-md mx-auto h-fit">
             {/* Header */}
             <div className="text-sm text-neutral-400 tracking-widest uppercase mb-2">
                 Typing Performance

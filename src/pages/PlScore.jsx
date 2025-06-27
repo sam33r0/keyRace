@@ -24,7 +24,7 @@ function PlScore() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white px-4 py-10 flex justify-center">
+    <div className="h-[80vh] bg-black text-white px-4 py-10 flex justify-center">
       <div className="w-full max-w-4xl h-[80vh] overflow-y-auto space-y-6 pr-2 scroll-smooth">
         {scores.length > 0 ? (
           scores.map((score, i) => <ScoreDisplay key={i} score={score} />).reverse()

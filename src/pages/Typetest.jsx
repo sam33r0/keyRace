@@ -19,7 +19,7 @@ function Typetest() {
         callData();
     }, [])
     return (
-        <div className='w-screen h-screen flex justify-center items-start p-20 bg-black'>
+        <div className='w-screen h-[80vh] flex justify-center items-start p-20 bg-black'>
             {par && <Typetesting par={[...par]} />}
             {/* <Typetesting par={[...'sameer srivastava']} /> */}
         </div>

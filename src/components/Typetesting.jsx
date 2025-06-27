@@ -94,10 +94,25 @@ function Typetesting({ par }) {
 
             {start && <>
                 <Score wpm={wpm} />
-                <div className='mt-7 text-lg'>
+                {/* <div className='mt-7 text-lg'>
                     {par.map((e, i) => {
                         return <span key={`${e}${i}`} className={`${i == ind ? 'text-yellow-500' : opp[i] === par[i] ? 'text-gray-50' : opp[i] === '' ? 'text-gray-500' : 'text-red-500'}`}>{e == ' ' && i == ind ? `_` : e == ' ' && ind > i && opp[i] != ' ' ? '_' : e}</span>
                     })}
+                </div> */}
+                <div className="w-full mt-8 p-4 rounded-lg bg-neutral-900 border border-neutral-700 text-lg font-mono leading-relaxed break-words">
+                    {par.map((char, i) => (
+                        <span
+                            key={`${char}${i}`}
+                            className={`
+            ${i === ind ? 'text-yellow-400 underline animate-pulse' : ''}
+            ${i < ind && opp[i] === par[i] ? 'text-white' : ''}
+            ${i < ind && opp[i] !== par[i] ? 'text-red-500' : ''}
+            ${i > ind ? 'text-neutral-500' : ''}
+          `}
+                        >
+                            {char === ' ' ? '\u00A0' : char}
+                        </span>
+                    ))}
                 </div>
             </>}
         </div>
