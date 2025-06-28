@@ -21,7 +21,11 @@ function Multiplayer() {
     time: 0
   });
   const navigate = useNavigate();
-  const socket = useMemo(() => io(import.meta.env.VITE_BACKEND_URL_SOCKET), []);
+  const socket = useMemo(() => io(import.meta.env.VITE_BACKEND_URL_SOCKET, {
+    transports: ['websocket'], 
+    secure: true,
+
+  }), []);
   useEffect(() => {
     socket.on('room-update', (data) => {
       setUsersInRoom(data.users);
@@ -36,7 +40,7 @@ function Multiplayer() {
         setNotifications((prev) => prev.slice(1));
       }, 3000);
     });
-    
+
     socket.on('game-start', (data) => {
       // console.log('game start called');
       setData(data)
