@@ -13,6 +13,7 @@ function Typetesting({ par }) {
     const [wpm, setWpm] = useState(0);
     const [wrg, setWrg] = useState(0);
     const inputRef = useRef(null);
+    const paragraphRef = useRef(null); 
     const wpmMeter = useRef({});
     const ind = typedInput.length;
     const opp = typedInput.split('');
@@ -75,7 +76,7 @@ function Typetesting({ par }) {
                 <>
                     <Score wpm={wpm} />
 
-                    <div className="w-full mt-8 p-4 sm:p-5 rounded-lg bg-neutral-900 border border-neutral-700 text-base sm:text-lg font-mono leading-relaxed break-words min-h-[120px]">
+                    <div className="w-full mt-8 p-4 sm:p-5 rounded-lg bg-neutral-900 border border-neutral-700 text-base sm:text-lg font-mono leading-relaxed break-words min-h-[120px]" ref={paragraphRef}>
                         {par.map((char, i) => (
                             <span
                                 key={i}
