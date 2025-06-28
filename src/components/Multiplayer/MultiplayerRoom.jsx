@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import getAvatar from '../../utils/getAvatar';
 import CopySvg from '../../assets/CopySvg';
-
+import HideOnMobile from '../HideOnMobile'
 function MultiplayerRoom({ socket, error, setError, usersInRoom, isHost, roomCode, setRoomCode }) {
     const [view, setView] = useState(null);
     const [copied, setCopied] = useState(false);
     const [inputCode, setInputCode] = useState('');
     const auth = useSelector((state) => state.auth);
-
     const generateRoomCode = () => Math.random().toString(36).substring(2, 6).toUpperCase();
 
     const handleCreate = () => {
@@ -156,6 +155,8 @@ function MultiplayerRoom({ socket, error, setError, usersInRoom, isHost, roomCod
     // );
     return (
         <div className="w-full h-screen bg-black text-white flex items-center justify-center p-6">
+            <HideOnMobile />
+
             <div className={`max-w-6xl ${view ? 'w-full' : 'lg:w-1/3'}  flex gap-10 bg-neutral-900 border border-neutral-700 rounded-2xl p-8 shadow-xl`}>
 
                 {/* Left Section */}
