@@ -90,15 +90,28 @@ function MPTypeTesting({ par, socket, time }) {
     }, [wpm, ind, wrg]);
     const [remainingTime, setRemainingTime] = useState(Number.parseInt(time / 1000) - 1);
 
+    // useEffect(() => {
+    //     if (remainingTime <= 0) return;
+
+    //     const interval = setInterval(() => {
+    //         setRemainingTime(prev => prev - 1);
+    //     }, 1000);
+
+    //     return () => clearInterval(interval);
+    // }, [remainingTime]);
+
     useEffect(() => {
-        if (remainingTime <= 0) return;
+        const handleTimeUpdate = (time) => {
+            setRemainingTime(time);
+        };
 
-        const interval = setInterval(() => {
-            setRemainingTime(prev => prev - 1);
-        }, 1000);
+        socket.on('time-update', handleTimeUpdate);
 
-        return () => clearInterval(interval);
-    }, [remainingTime]);
+        return () => {
+            socket.off('time-update', handleTimeUpdate);
+        };
+    }, []);
+
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
