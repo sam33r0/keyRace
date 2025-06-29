@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { finalScoring, updateScore } from './../store/scoreSlice';
+import { finalScoring, resetScore, updateScore } from './../store/scoreSlice';
 import Score from './Score';
-import calculateWpm from './wpmCalculator';
+import calculateWpm, { resetPrevTyped } from './wpmCalculator';
 import { useNavigate } from 'react-router-dom';
 
 function Typetesting({ par }) {
@@ -13,13 +13,16 @@ function Typetesting({ par }) {
     const [wpm, setWpm] = useState(0);
     const [wrg, setWrg] = useState(0);
     const inputRef = useRef(null);
-    const paragraphRef = useRef(null); 
+    const paragraphRef = useRef(null);
     const wpmMeter = useRef({});
     const ind = typedInput.length;
     const opp = typedInput.split('');
-
+    const intervalRef = useRef(null);
     const accuracy = (Math.max((1 - ((wrg * 2) / (wrg + par.length))) * 100, 0)).toFixed(2);
-
+    useEffect(() => {
+        resetPrevTyped();
+        dispatch(resetScore())
+    }, [])
     useEffect(() => {
         if (!start) return;
         calculateWpm(par, opp, ind, setWpm);
@@ -55,7 +58,14 @@ function Typetesting({ par }) {
     };
     useEffect(() => {
         if (start && inputRef.current) {
-            inputRef.current.focus();
+            intervalRef.current = setInterval(() => {
+                if (inputRef.current && document.activeElement !== inputRef.current) {
+                    inputRef.current.focus();
+                }
+            }, 750)
+        }
+        return () => {
+            clearInterval(intervalRef.current)
         }
     }, [start]);
 
@@ -93,7 +103,7 @@ function Typetesting({ par }) {
                     </div>
 
                     {/* Hidden input for mobile keyboard activation */}
-                    <input
+                    {/* <input
                         ref={inputRef}
                         type="text"
                         className="absolute opacity-0 w-0 h-0"
@@ -101,7 +111,18 @@ function Typetesting({ par }) {
                         value={typedInput}
                         onChange={handleChange}
                         onFocus={handleInputFocus}
+                    /> */}
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        inputMode="text"
+                        value={typedInput}
+                        autoFocus
+                        onChange={handleChange}
+                        onFocus={handleInputFocus}
+                        className="sr-only"
                     />
+
                 </>
             )}
         </div>

@@ -34,7 +34,8 @@ export const scoreSlice = createSlice({
             state.averageWpm = averageWpm;
         },
         resetScore: (state) => {
-            state = initialState;
+            state.mistypes = initialState.mistypes;
+            state.accuracy = initialState.accuracy;
         },
         finalScoring: (state, action) => {
             const opp = action.payload.opp;

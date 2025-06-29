@@ -14,6 +14,10 @@ const calculateWpm = throttle((par, opp, ind, setWpm) => {
     return wpm;
 
 }, delay)
-
-
+const resetPrevTyped = () => {
+    prevTyped = 0;
+}
+export {
+    resetPrevTyped
+}
 export default calculateWpm;
